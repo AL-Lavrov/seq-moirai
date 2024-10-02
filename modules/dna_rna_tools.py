@@ -1,27 +1,6 @@
 import bases
 
 
-def run_dna_rna_tools(*seqs_and_action, seq_type=None):
-    action = str(seqs_and_action[-1])
-    seqs = seqs_and_action[:-1]
-
-    if is_nucleic_acid(seqs) is False:
-        return None
-    if seq_type is None:
-        seq_type = is_dna_or_rna(seqs)
-
-    if action == 'reverse':
-        processed_seq = [reverse_seq(seq) for seq in seqs]
-    elif action == 'transcribe' and seq_type:
-        processed_seq = [transcribe_seq(seq, seq_type) for seq in seqs]
-    elif action == 'complement' and seq_type:
-        processed_seq = [complement_seq(seq, seq_type) for seq in seqs]
-    elif action == 'reverse_complement' and seq_type:
-        processed_seq = [reverse_complement_seq(seq, seq_type) for seq in seqs]
-
-    return processed_seq[0] if len(processed_seq) == 1 else processed_seq
-
-
 def is_nucleic_acid(seqs: tuple) -> bool:
     seqs = tuple(seq.upper() for seq in seqs)
     return all(seq and set(seq).issubset(bases.nucleotides) for seq in seqs)

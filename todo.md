@@ -1,6 +1,6 @@
-### FilterQC
+### filter_qc
 
-- [ ] Add FilterQC main function
+- [ ] Add filter_qc main function
 
 ### rna_dna_tools
 
@@ -8,6 +8,7 @@
 - [ ] Add count_gc()
 - [ ] Add translate_sequence()
 - [x] Add dictionary to call functions
+- [x] Type functions
 - [ ] Add docstrings of functions
   
 ### readme_md

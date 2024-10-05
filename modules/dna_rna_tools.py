@@ -1,7 +1,12 @@
 from . import bases
+from typing import Tuple, Union, TypedDict
 
+class Options(TypedDict):
+    seq_type: Union[None, str]
+    frame: int
 
-def get_data(*seqs_and_action, **options):
+def get_data( *seqs_and_action: str, **options: Options
+        ) -> Tuple[Tuple[str], str, Options]:
     action = str(seqs_and_action[-1])
     options = add_defaults(**options)
     seqs = seqs_and_action[:-1]
@@ -12,10 +17,11 @@ def get_data(*seqs_and_action, **options):
     return seqs, action, options
 
 
-def add_defaults(**options):
+def add_defaults(**options: Options) -> Options:
     default_options = {'seq_type': None, 'frame': 1}
-    default_options.update(options)
-    return default_options
+    updated_options = default_options.update(options)
+    return updated_options
+    raise ValueError('Incorrect options given')
 
 
 def is_nucleic_acid(seqs: tuple) -> bool:
@@ -33,7 +39,7 @@ def is_dna_or_rna(seqs: tuple) -> str:
         return None
 
 
-def transcribe_seq(seq: str, **options) -> str:
+def transcribe_seq(seq: str, **options: Options) -> str:
     seq_type = options['seq_type']
     if seq_type == 'dna':
         return seq.replace('t', 'u').replace('T', 'U')
@@ -41,11 +47,11 @@ def transcribe_seq(seq: str, **options) -> str:
         return seq.replace('u', 't').replace('U', 'T')
 
 
-def reverse_seq(seq, **options) -> str:
+def reverse_seq(seq: str, **options: Options) -> str:
     return seq[::-1]
 
 
-def complement_seq(seq, **options) -> str:
+def complement_seq(seq: str, **options: Options) -> str:
     seq_type = options['seq_type']
     if seq_type == "rna":
         return seq.translate(str.maketrans(bases.rna_base_pairs))
@@ -53,7 +59,7 @@ def complement_seq(seq, **options) -> str:
         return seq.translate(str.maketrans(bases.dna_base_pairs))
 
 
-def reverse_complement_seq(seq: str, **options) -> str:
+def reverse_complement_seq(seq: str, **options: Options) -> str:
     return reverse_seq(complement_seq(seq, **options), **options)
 
 

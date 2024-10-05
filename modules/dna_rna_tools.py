@@ -21,7 +21,6 @@ def add_defaults(**options: Options) -> Options:
     default_options = {'seq_type': None, 'frame': 1}
     updated_options = default_options.update(options)
     return updated_options
-    raise ValueError('Incorrect options given')
 
 
 def is_nucleic_acid(seqs: tuple) -> bool:
@@ -36,7 +35,7 @@ def is_dna_or_rna(seqs: tuple) -> str:
     elif all(set(seq).issubset(bases.rna_bases) for seq in seqs):
         return 'rna'
     else:
-        return None
+        raise ValueError('Mixed input of DNA and RNA')
 
 
 def transcribe(seq: str, **options: Options) -> str:

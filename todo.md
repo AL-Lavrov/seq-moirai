@@ -10,6 +10,7 @@
 - [x] Add dictionary to call functions
 - [x] Type functions
 - [ ] Add docstrings of functions
+- [ ] Add options check
   
 ### readme_md
 

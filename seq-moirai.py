@@ -8,3 +8,6 @@ def run_dna_rna_tools(*seqs_and_action, **options):
               'complement': drt.complement_seq}
     processed_seq = [action_map[action](seq, **options) for seq in seqs]
     return processed_seq[0] if len(processed_seq) == 1 else processed_seq
+
+
+print(run_dna_rna_tools('aaauu', 'UUUUUUU', 'TcccccG', 'complement'))

@@ -33,14 +33,15 @@ def is_dna_or_rna(seqs: tuple) -> str:
         return None
 
 
-def transcribe_seq(seq: str, seq_type: str) -> str:
+def transcribe_seq(seq: str, **options) -> str:
+    seq_type = options['seq_type']
     if seq_type == 'dna':
         return seq.replace('t', 'u').replace('T', 'U')
     if seq_type == 'rna':
         return seq.replace('u', 't').replace('U', 'T')
 
 
-def reverse_seq(seq, **kwargs) -> str:
+def reverse_seq(seq, **options) -> str:
     return seq[::-1]
 
 
@@ -52,8 +53,8 @@ def complement_seq(seq, **options) -> str:
         return seq.translate(str.maketrans(bases.dna_base_pairs))
 
 
-def reverse_complement_seq(seq: str, seq_type: str) -> str:
-    return reverse_seq(complement_seq(seq, seq_type))
+def reverse_complement_seq(seq: str, **options) -> str:
+    return reverse_seq(complement_seq(seq, **options), **options)
 
 
 

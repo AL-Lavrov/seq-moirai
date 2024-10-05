@@ -1,24 +1,22 @@
 from . import bases
 
+
 def get_data(*seqs_and_action, **options):
     action = str(seqs_and_action[-1])
-    print(f'options before update in rdt: {options}')
     options = add_defaults(**options)
-    print(f'options after update in rdt: {options}')
     seqs = seqs_and_action[:-1]
     if is_nucleic_acid(seqs) is False:
         raise ValueError('Not a nucleic acid')
     if options['seq_type'] is None:
         options['seq_type'] = is_dna_or_rna(seqs)
-    
-    return seqs, action, {'seq_type': options['seq_type'],
-        'frame': options['frame']}
+    return seqs, action, options
 
 
 def add_defaults(**options):
     default_options = {'seq_type': None, 'frame': 1}
     default_options.update(options)
     return default_options
+
 
 def is_nucleic_acid(seqs: tuple) -> bool:
     seqs = tuple(seq.upper() for seq in seqs)
@@ -57,9 +55,6 @@ def complement_seq(seq, **options) -> str:
 def reverse_complement_seq(seq: str, seq_type: str) -> str:
     return reverse_seq(complement_seq(seq, seq_type))
 
-action_map = {'transcribe': transcribe_seq,
-              'reverse': reverse_seq,
-              'reverse_complement': reverse_complement_seq,
-              'complement': complement_seq}
+
 
 

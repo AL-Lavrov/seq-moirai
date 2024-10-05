@@ -5,7 +5,7 @@
 ### rna_dna_tools
 
 - [x] Replace nucleic acids type check into functions
-- [ ] Add count_gc()
+- [x] Add count_gc()
 - [ ] Add translate_sequence()
 - [x] Add dictionary to call functions
 - [x] Type functions

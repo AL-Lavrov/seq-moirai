@@ -7,9 +7,9 @@ class Options(TypedDict):
     frame: int
 
 
-def get_data( *seqs_and_action: str, **options: Options
-        ) -> Tuple[Tuple[str], str, Options]:
-    
+def get_data(*seqs_and_action: str, **options: Options
+             ) -> Tuple[Tuple[str], str, Options]:
+
     action = str(seqs_and_action[-1])
     options = add_defaults(**options)
     seqs = seqs_and_action[:-1]
@@ -72,5 +72,12 @@ def count_gc(seq: str, **options: Options) -> str:
     return str(gc_content)
 
 
-
-
+def translate(seq: str, **options: Options) -> str:
+    protein, frame = '', options['frame']
+    seq = seq.upper()[frame - 1: len(seq) - len(seq) % 3]
+    if options['seq_type'] == 'dna':
+        seq = transcribe(seq, **options)
+    for i in range(0, len(seq), 3):
+        codon = seq[i: i+3]
+        protein += bases.codons[codon]
+    return protein

@@ -1,12 +1,15 @@
 from . import bases
 from typing import Tuple, Union, TypedDict
 
+
 class Options(TypedDict):
     seq_type: Union[None, str]
     frame: int
 
+
 def get_data( *seqs_and_action: str, **options: Options
         ) -> Tuple[Tuple[str], str, Options]:
+    
     action = str(seqs_and_action[-1])
     options = add_defaults(**options)
     seqs = seqs_and_action[:-1]
@@ -14,13 +17,14 @@ def get_data( *seqs_and_action: str, **options: Options
         raise ValueError('Not a nucleic acid')
     if options['seq_type'] is None:
         options['seq_type'] = is_dna_or_rna(seqs)
+
     return seqs, action, options
 
 
 def add_defaults(**options: Options) -> Options:
     default_options = {'seq_type': None, 'frame': 1}
-    updated_options = default_options.update(options)
-    return updated_options
+    default_options.update(**options)
+    return default_options
 
 
 def is_nucleic_acid(seqs: tuple) -> bool:
@@ -60,6 +64,12 @@ def complement(seq: str, **options: Options) -> str:
 
 def reverse_complement(seq: str, **options: Options) -> str:
     return reverse(complement(seq, **options), **options)
+
+
+def count_gc(seq: str, **options: Options) -> str:
+    seq = seq.upper()
+    gc_content = (seq.count('G') + seq.count('C')) / len(seq)
+    return str(gc_content)
 
 
 

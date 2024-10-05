@@ -1,6 +1,6 @@
-### FastQC
+### FilterQC
 
-- [ ] Add FastQC main function
+- [ ] Add FilterQC main function
 
 ### rna_dna_tools
 

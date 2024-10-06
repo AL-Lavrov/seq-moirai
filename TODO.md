@@ -4,7 +4,7 @@
 
 - [ ] Add filter_fastq main function
 - [X] Add filter_gc function
-- [ ] Add filter_length function
+- [x] Add filter_length function
 - [ ] Add filter_quality function
 - [ ] Add get_bounds function?
 - [ ] Write docstrings

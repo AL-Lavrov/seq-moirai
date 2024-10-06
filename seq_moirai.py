@@ -20,14 +20,14 @@ def run_dna_rna_tools(*seqs_and_action: str, **options: drt.Options
 def filter_fastq(fastq_entry: Dict[str, Tuple[str]], 
                  gc_bounds: Union[float, Tuple[float]] = (0, 100), 
                  length_bounds: Union[float, Tuple[float]] = (0, 2**32), 
-                 quality_bounds: float = 0
+                 quality_threshold: float = 0
                  ) -> Dict[str, Tuple[str]]:
     processed_fastq = {}
     for name, seq_info in fastq_entry.items():
         seq, seq_quality = seq_info
         if ffq.filter_gc(seq, gc_bounds) and\
            ffq.filter_length(seq, length_bounds) and\
-           ffq.filter_quality(seq_quality, quality_bounds):
+           ffq.filter_quality(seq_quality, quality_threshold):
            processed_fastq.update({name: seq_info})
         return processed_fastq
 

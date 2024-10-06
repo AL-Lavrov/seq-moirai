@@ -25,7 +25,6 @@ def filter_fastq(fastq_entry: Dict[str, Tuple[str]],
                  ) -> Dict[str, Tuple[str]]:
 
     processed_fastq = {}
-    print(processed_fastq)
     for name, seq_info in fastq_entry.items():
         seq, seq_quality = seq_info
         if (

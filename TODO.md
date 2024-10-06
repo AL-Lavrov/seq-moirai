@@ -6,7 +6,7 @@
 - [X] Add filter_gc function
 - [x] Add filter_length function
 - [X] Add filter_quality function
-- [ ] Add get_bounds function?
+- [ ] ~~Add get_bounds function?~~
 - [ ] Write docstrings
 
 ## rna_dna_tools

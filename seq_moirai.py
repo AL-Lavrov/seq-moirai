@@ -23,13 +23,14 @@ def filter_fastq(fastq_entry: Dict[str, Tuple[str]],
                  quality_threshold: float = 0
                  ) -> Dict[str, Tuple[str]]:
     processed_fastq = {}
+    print(processed_fastq)
     for name, seq_info in fastq_entry.items():
         seq, seq_quality = seq_info
         if ffq.filter_gc(seq, gc_bounds) and\
            ffq.filter_length(seq, length_bounds) and\
            ffq.filter_quality(seq_quality, quality_threshold):
            processed_fastq.update({name: seq_info})
-        return processed_fastq
+    return processed_fastq
 
 EXAMPLE_FASTQ = {
     # 'name' : ('sequence', 'quality')
@@ -47,4 +48,4 @@ EXAMPLE_FASTQ = {
     '@SRX079812': ('AGTGAGACACCCCTGAACATTCCTAGTAAGACATCTTTGAATATTACTAGTTAGCCACACTTTAAAATGACCCG', '<98;<@@@:@CD@BCCDD=DBBCEBBAAA@9???@BCDBCGF=GEGDFGDBEEEEEFFFF=EDEE=DCD@@BBC')
     }  
 
-print(filter_fastq(EXAMPLE_FASTQ))
+print(filter_fastq(EXAMPLE_FASTQ, length_bounds=75))

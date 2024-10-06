@@ -16,7 +16,8 @@ def filter_length(seq:str, length_bounds:Union[int, Tuple[int]]) -> bool:
 
 
 def filter_quality(seq_quality: str, quality_threshold: int) -> bool:
+    q_score_sum = 0
     for base in seq_quality:
-        q_score_sum = ord(base) - 33
+        q_score_sum += ord(base) - 33
     mean_q_score = q_score_sum / len(seq_quality)
-    return mean_q_score > quality_threshold
+    return mean_q_score >= quality_threshold

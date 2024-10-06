@@ -25,10 +25,10 @@ def filter_fastq(fastq_entry: Dict[str, Tuple[str]],
     processed_fastq = {}
     for name, seq_info in fastq_entry.items():
         seq, seq_quality = seq_info
-        if all(ffq.filter_gc(seq, gc_bounds),
-               ffq.filter_length(seq, length_bounds),
-               ffq.filter_quality(seq_quality, quality_bounds)):
-            processed_fastq.update({name: seq_info})
+        if ffq.filter_gc(seq, gc_bounds) and\
+           ffq.filter_length(seq, length_bounds) and\
+           ffq.filter_quality(seq_quality, quality_bounds):
+           processed_fastq.update({name: seq_info})
         return processed_fastq
 
 EXAMPLE_FASTQ = {

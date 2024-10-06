@@ -75,10 +75,11 @@ def count_gc(seq: str, **options: Options) -> str:
 
 def translate(seq: str, **options: Options) -> str:
     protein, frame = "", options["frame"]
-    seq = seq.upper()[frame - 1: len(seq) - len(seq) % 3]
+    seq = seq.upper()[frame - 1:]
     if options["seq_type"] == "dna":
         seq = transcribe(seq, **options)
     for i in range(0, len(seq), 3):
         codon = seq[i: i + 3]
-        protein += bases.codons[codon]
+        if len(codon) == 3:
+            protein += bases.codons[codon]
     return protein

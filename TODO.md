@@ -1,8 +1,15 @@
-### filter_qc
+# TODO
 
-- [ ] Add filter_qc main function
+## filter_fastq
 
-### rna_dna_tools
+- [ ] Add filter_fastq main function
+- [X] Add filter_gc function
+- [ ] Add filter_length function
+- [ ] Add filter_quality function
+- [ ] Add get_bounds function?
+- [ ] Write docstrings
+
+## rna_dna_tools
 
 - [x] Replace nucleic acids type check into functions
 - [x] Add count_gc()
@@ -12,6 +19,6 @@
 - [ ] Add docstrings of functions
 - [ ] Add options check
   
-### readme_md
+## README.MD
 
 - [ ] Add README file

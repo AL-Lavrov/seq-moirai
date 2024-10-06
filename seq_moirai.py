@@ -1,4 +1,5 @@
 import modules.dna_rna_tools as drt
+import modules.filter_fastq as ffq
 from typing import Union, Tuple, Dict
 
 
@@ -16,13 +17,19 @@ def run_dna_rna_tools(*seqs_and_action: str, **options: drt.Options
     return processed_seq[0] if len(processed_seq) == 1 else processed_seq
 
 
-def filter_fastq(seqs: Dict[str, Tuple[str]], 
+def filter_fastq(fastq_entry: Dict[str, Tuple[str]], 
                  gc_bounds: Union[float, Tuple[float]] = (0, 100), 
                  length_bounds: Union[float, Tuple[float]] = (0, 2**32), 
                  quality_bounds: float = 0
                  ) -> Dict[str, Tuple[str]]:
-    for name, seq_info in seqs.items():
-        print(name, seq_info)
+    processed_fastq = {}
+    for name, seq_info in fastq_entry.items():
+        seq, seq_quality = seq_info
+        if all(ffq.filter_gc(seq, gc_bounds),
+               ffq.filter_length(seq, length_bounds),
+               ffq.filter_quality(seq_quality, quality_bounds)):
+            processed_fastq.update({name: seq_info})
+        return processed_fastq
 
 EXAMPLE_FASTQ = {
     # 'name' : ('sequence', 'quality')

@@ -7,22 +7,23 @@ class Options(TypedDict):
     frame: int
 
 
-def get_data(*seqs_and_action: str, **options: Options
+def get_data(*seqs_and_action: str,
+             **options: Options
              ) -> Tuple[Tuple[str], str, Options]:
 
     action = str(seqs_and_action[-1])
     options = add_defaults(**options)
     seqs = seqs_and_action[:-1]
     if is_nucleic_acid(seqs) is False:
-        raise ValueError('Not a nucleic acid')
-    if options['seq_type'] is None:
-        options['seq_type'] = is_dna_or_rna(seqs)
+        raise ValueError("Not a nucleic acid")
+    if options["seq_type"] is None:
+        options["seq_type"] = is_dna_or_rna(seqs)
 
     return seqs, action, options
 
 
 def add_defaults(**options: Options) -> Options:
-    default_options = {'seq_type': None, 'frame': 1}
+    default_options = {"seq_type": None, "frame": 1}
     default_options.update(**options)
     return default_options
 
@@ -35,19 +36,19 @@ def is_nucleic_acid(seqs: tuple) -> bool:
 def is_dna_or_rna(seqs: tuple) -> str:
     seqs = tuple(seq.upper() for seq in seqs)
     if all(set(seq).issubset(bases.dna_bases) for seq in seqs):
-        return 'dna'
+        return "dna"
     elif all(set(seq).issubset(bases.rna_bases) for seq in seqs):
-        return 'rna'
+        return "rna"
     else:
-        raise ValueError('Mixed input of DNA and RNA')
+        raise ValueError("Mixed input of DNA and RNA")
 
 
 def transcribe(seq: str, **options: Options) -> str:
-    seq_type = options['seq_type']
-    if seq_type == 'dna':
-        return seq.replace('t', 'u').replace('T', 'U')
-    if seq_type == 'rna':
-        return seq.replace('u', 't').replace('U', 'T')
+    seq_type = options["seq_type"]
+    if seq_type == "dna":
+        return seq.replace("t", "u").replace("T", "U")
+    if seq_type == "rna":
+        return seq.replace("u", "t").replace("U", "T")
 
 
 def reverse(seq: str, **options: Options) -> str:
@@ -55,7 +56,7 @@ def reverse(seq: str, **options: Options) -> str:
 
 
 def complement(seq: str, **options: Options) -> str:
-    seq_type = options['seq_type']
+    seq_type = options["seq_type"]
     if seq_type == "rna":
         return seq.translate(str.maketrans(bases.rna_base_pairs))
     if seq_type == "dna":
@@ -68,16 +69,16 @@ def reverse_complement(seq: str, **options: Options) -> str:
 
 def count_gc(seq: str, **options: Options) -> str:
     seq = seq.upper()
-    gc_content = (seq.count('G') + seq.count('C')) / len(seq)
+    gc_content = (seq.count("G") + seq.count("C")) / len(seq)
     return str(gc_content)
 
 
 def translate(seq: str, **options: Options) -> str:
-    protein, frame = '', options['frame']
+    protein, frame = "", options["frame"]
     seq = seq.upper()[frame - 1: len(seq) - len(seq) % 3]
-    if options['seq_type'] == 'dna':
+    if options["seq_type"] == "dna":
         seq = transcribe(seq, **options)
     for i in range(0, len(seq), 3):
-        codon = seq[i: i+3]
+        codon = seq[i: i + 3]
         protein += bases.codons[codon]
     return protein

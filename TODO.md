@@ -2,7 +2,7 @@
 
 ## filter_fastq
 
-- [ ] Add filter_fastq main function
+- [x] Add filter_fastq main function
 - [X] Add filter_gc function
 - [x] Add filter_length function
 - [X] Add filter_quality function

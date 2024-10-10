@@ -7,7 +7,7 @@
 - [x] Add filter_length function
 - [X] Add filter_quality function
 - [ ] ~~Add get_bounds function?~~
-- [ ] Write docstrings
+- [x] Write docstrings
 
 ## rna_dna_tools
 
@@ -16,9 +16,9 @@
 - [x] Add translate_sequence()
 - [x] Add dictionary to call functions
 - [x] Type functions
-- [ ] Add docstrings of functions
+- [x] Add docstrings of functions
 - [ ] Add options check
   
 ## README.MD
 
-- [ ] Add README file
+- [x] Add README file

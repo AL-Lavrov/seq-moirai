@@ -1,0 +1,24 @@
+# TODO
+
+## filter_fastq
+
+- [x] Add filter_fastq main function
+- [X] Add filter_gc function
+- [x] Add filter_length function
+- [X] Add filter_quality function
+- [ ] ~~Add get_bounds function?~~
+- [x] Write docstrings
+
+## rna_dna_tools
+
+- [x] Replace nucleic acids type check into functions
+- [x] Add count_gc()
+- [x] Add translate_sequence()
+- [x] Add dictionary to call functions
+- [x] Type functions
+- [x] Add docstrings of functions
+- [ ] Add options check
+  
+## README.MD
+
+- [x] Add README file

@@ -6,11 +6,11 @@ class Options(TypedDict):
     '''
     Default structure of dna_rna_tools options.
 
-    seq_type (str): Sequence type of input nucleic acids. 
+    seq_type (str): Sequence type of input nucleic acids.
         'rna' and 'dna' are accepted by downstream functions.
         None value triggers get_data function to check nucleic
         acid type in input.
-    frame (int): Number of reading frame to translate. Accepted 
+    frame (int): Number of reading frame to translate. Accepted
         values are 1, 2, 3.
     '''
     seq_type: Union[None, str]
@@ -33,12 +33,12 @@ def get_data(*seqs_and_action: str,
     **options: Additional keyword arguments.
     - seq_type (str): Type of nucleic acid to be processed by
     rna_dna_tools.
-    - frame (int): Specifies the reading frame 
+    - frame (int): Specifies the reading frame
     for the 'translate' action.
     Returns
     -------
 
-    Tuple[Tuple[str], str, Options]: structured data which can be processed 
+    Tuple[Tuple[str], str, Options]: structured data which can be processed
     by run_rna_dna_tools.
     '''
     action = str(seqs_and_action[-1])
@@ -54,7 +54,7 @@ def get_data(*seqs_and_action: str,
 
 def add_defaults(**options: Options) -> Options:
     '''
-    Add default values to class Options dictionary if some 
+    Add default values to class Options dictionary if some
     are not specified.
 
     Arguments
@@ -79,8 +79,8 @@ def add_defaults(**options: Options) -> Options:
 def is_nucleic_acid(seqs: tuple) -> bool:
     '''
     Checks if all of sequences passed are valid nucleic acids
-     
-    Valid nucleic acids contain only {A, T, G, C, U} bases, 
+
+    Valid nucleic acids contain only {A, T, G, C, U} bases,
     do not contain T and U simultaneously, must not be
     blank strings.
 
@@ -100,7 +100,7 @@ def is_nucleic_acid(seqs: tuple) -> bool:
 def is_dna_or_rna(seqs: tuple) -> str:
     '''
     Checks the type of nucleic acids sequences passed.
-     
+
     Arguments
     ---------
     seqs (Tuple[str]): one or more sequences.
@@ -128,9 +128,9 @@ def transcribe(seq: str, **options: Options) -> str:
 
     **options (Options): Keyword arguments.
 
-    - seq_type (str): Specifies direction of transcription. 
+    - seq_type (str): Specifies direction of transcription.
     - Must be 'dna' or 'rna'.
-    
+
     Returns
     -------
     str: nucleic acid sequence of opposite type.
@@ -170,14 +170,14 @@ def complement(seq: str, **options: Options) -> str:
 
     Arguments
     ---------
-    seq (str): The nucleic acid sequence for which complement 
+    seq (str): The nucleic acid sequence for which complement
     must be generated.
 
     **options (Options): Keyword arguments.
 
     - seq_type (str): specifies a complementary rules applied for
     input sequence ('dna' or 'rna').
-    
+
     Returns
     -------
     str: complementary strand for input sequence in 3'-5' direction.
@@ -194,19 +194,19 @@ def reverse_complement(seq: str, **options: Options) -> str:
     Generates 5'-3' complementary sequence.
 
     DNA complement is generated for input DNA sequences, and RNA
-    complement is generated for RNA sequences. This function combines 
+    complement is generated for RNA sequences. This function combines
     the operations of complementing and reversing.
 
     Arguments
     ---------
-    seq (str): The nucleic acid sequence for which complement 
+    seq (str): The nucleic acid sequence for which complement
     must be generated.
 
     **options (Options): Keyword arguments.
 
     - seq_type (str): specifies a complementary rules applied for
     - input sequence. Must be 'dna' or 'rna'.
-    
+
     Returns
     -------
     str: complementary strand for input sequence in 5'-3' direction.
@@ -229,7 +229,7 @@ def count_gc(seq: str, **options: Options) -> str:
     Returns
     -------
     (str) - a fraction of G and C in input sequence.
-    
+
     Notes
     -----
     Computed GC-content is converted to string to unify output
@@ -245,8 +245,8 @@ def translate(seq: str, **options: Options) -> str:
     Translates nucleic acid sequence into the protein it encodes.
 
     Translation occurs according to the standard genetic code in the
-    specified reading frame. The translation starts at the first, 
-    second, or third base, depending on the chosen reading frame, and 
+    specified reading frame. The translation starts at the first,
+    second, or third base, depending on the chosen reading frame, and
     any bases that do not form a complete triplet are truncated.
 
     Arguments
@@ -260,7 +260,7 @@ def translate(seq: str, **options: Options) -> str:
 
     Returns
     -------
-    str: Translated protein sequence in one-letter notation. 
+    str: Translated protein sequence in one-letter notation.
     '''
     protein, frame = "", options["frame"]
     seq = seq.upper()[frame - 1:]

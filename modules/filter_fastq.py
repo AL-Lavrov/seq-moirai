@@ -15,7 +15,8 @@ def filter_gc(seq: str, gc_bounds: Union[float, Tuple[float]]) -> bool:
 
     Returns
     -------
-    bool: True if GC-content of sequence lies within the bounds. False otherwise.
+    bool: True if GC-content of sequence lies within the bounds.
+    False otherwise.
     '''
     if isinstance(gc_bounds, Union[float, int]):
         gc_bounds = (0, gc_bounds)
@@ -49,8 +50,8 @@ def filter_quality(seq_quality: str, quality_threshold: int) -> bool:
     '''
     Checks if mean quality of sequence fits specified threshold of Q-score.
 
-    Converts ASCII-coded quality of each base of sequence to Phred33 score, 
-    evaluates the mean quality, and compares it with specified treshold.  
+    Converts ASCII-coded quality of each base of sequence to Phred33 score,
+    evaluates the mean quality, and compares it with specified treshold.
 
     Arguments
     ---------

@@ -9,40 +9,40 @@ def run_dna_rna_tools(*seqs_and_action: str,
     '''
     Transforms nucleic acid sequences.
 
-    This function validates the input (nucleic acid sequences and 
-    the action to be performed) and applies the corresponding 
-    transformation to each sequence. 
+    This function validates the input (nucleic acid sequences and
+    the action to be performed) and applies the corresponding
+    transformation to each sequence.
 
     Arguments
     ---------
 
     *seqs_and_action (str): Any number of nucleic acid sequences
-        followed by the desired action as the final argument. 
-        All sequences must be of the same type (either RNA or DNA), 
+        followed by the desired action as the final argument.
+        All sequences must be of the same type (either RNA or DNA),
         and degenerate bases (Y, N, etc.) are not allowed.
         Accepted actions:
         - 'transcribe' - Converts DNA to RNA.
         - 'reverse' - Reverses the sequence (3' to 5' direction).
-        - 'complement' - Generates the complementary sequence 
+        - 'complement' - Generates the complementary sequence
           (in the 3' to 5' direction).
-        - 'reverse-complement' - Returns the reverse-complementary 
+        - 'reverse-complement' - Returns the reverse-complementary
           sequence (in the 5' to 3' direction).
-        - 'count_gc' - Returns a string with the GC content of 
+        - 'count_gc' - Returns a string with the GC content of
           the sequence.
-        - 'translate' - Translates the sequence into a protein. 
-          Start codons are marked as 'M!', and stop codons as '*'. 
-          The reading frame is determined by the `frame` argument. 
+        - 'translate' - Translates the sequence into a protein.
+          Start codons are marked as 'M!', and stop codons as '*'.
+          The reading frame is determined by the `frame` argument.
           Bases not forming a complete triplet are truncated.
-          
+
     **options: Additional keyword arguments.
-    - seq_type (str): Typically not required, but use 'rna' for RNA 
+    - seq_type (str): Typically not required, but use 'rna' for RNA
     nputs lacking uridine (U) bases. This overrides mixed input control.
-    - frame (int): Can be 1, 2, or 3. Specifies the reading frame 
+    - frame (int): Can be 1, 2, or 3. Specifies the reading frame
     for the 'translate' action. Default is 1.
 
     Returns
     -------
-    A string with the transformed sequence if one sequence is passed, 
+    A string with the transformed sequence if one sequence is passed,
     or a list of strings if two or more sequences are passed.
     '''
     seqs, action, options = drt.get_data(*seqs_and_action, **options)
@@ -62,17 +62,19 @@ def filter_fastq(fastq_entry: Dict[str, Tuple[str]],
                  quality_threshold: int = 0,
                  ) -> Dict[str, Tuple[str]]:
     '''
-    Filters a FASTQ entry based on specified GC-content, length, and quality bounds.
+    Filters a FASTQ entry based on specified GC-content, length
+    and quality bounds.
 
-    The function selects sequences that lie within the specified bounds of GC-content,
-    length, and have a quality score higher than the specified threshold, and returns 
-    a new dictionary consisting of the sequences that pass the filtration.
+    The function selects sequences that lie within the specified bounds
+    of GC-content, length, and have a quality score higher than the
+    specified threshold, and returns a new dictionary
+    consisting of the sequences that pass the filtration.
 
     Arguments
     ---------
 
     fastq_entry (Dict[str, Tuple[str]]): Fastq entry which is represented as
-      dictionary with structure {'name' : ('sequence', 'quality')}. 
+      dictionary with structure {'name' : ('sequence', 'quality')}.
       - 'name' - sequence ID
       - 'sequence' - read sequence consisting of {A, T, G, C}.
       - 'quality' - A string with ASCII-coded quality of each base read.
@@ -86,7 +88,7 @@ def filter_fastq(fastq_entry: Dict[str, Tuple[str]],
     interval (tuple). Default is (0, 2**32).
 
     quality_threshold (int): The lower limit of Q-score. Default is 0.
-    
+
     Returns
     -------
     (Dict[str, Tuple[str]]): Dictionary of the same structure as input
